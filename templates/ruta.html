@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block contenido %}
+<h1>Ruta inteligente</h1>
+<p class="subtitulo">Recorrido sugerido (algoritmo del vecino más cercano)</p>
+
+<div class="tarjeta">
+    <ul class="ruta-lista">
+        {% for parada in datos.ruta %}
+        <li class="ruta-paso {{ 'destino' if loop.last else '' }}">
+            <span class="ruta-numero">{{ loop.index }}</span>
+            <span>{{ parada }}</span>
+        </li>
+        {% if not loop.last %}
+        <li class="ruta-flecha">&#8595;</li>
+        {% endif %}
+        {% endfor %}
+    </ul>
+    <p><strong>Distancia total:</strong> {{ datos.distancia_total }} km</p>
+</div>
+{% endblock %}

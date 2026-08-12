@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block contenido %}
+<h1>Lugar libre</h1>
+<p class="subtitulo">Publicá tu espacio libre o lo que necesitás</p>
+
+<div class="tarjeta">
+    <form class="formulario" method="POST">
+        <label for="lugar_libre">Cajones libres que ofrezco</label>
+        <input type="number" id="lugar_libre" name="lugar_libre" min="0" value="0">
+
+        <label for="necesita">Cajones que necesito</label>
+        <input type="number" id="necesita" name="necesita" min="0" value="0">
+
+        <button type="submit" class="btn">Publicar</button>
+    </form>
+</div>
+
+<div class="tarjeta">
+    <h2>Coincidencias encontradas</h2>
+    {% if coincidencias %}
+    <table class="tabla">
+        <thead>
+            <tr>
+                <th>Ofrece</th>
+                <th>Localidad</th>
+                <th>Producto</th>
+                <th>Cajones</th>
+                <th>Necesita</th>
+                <th>Localidad</th>
+                <th>Distancia</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for c in coincidencias %}
+            <tr>
+                <td>{{ c.nombre_ofrece }}</td>
+                <td>{{ c.localidad_ofrece }}</td>
+                <td>{{ c.producto_ofrece }}</td>
+                <td>{{ c.cantidad }}</td>
+                <td>{{ c.nombre_necesita }}</td>
+                <td>{{ c.localidad_necesita }}</td>
+                <td>{{ c.distancia }}{% if c.distancia != 'No disponible' %} km{% endif %}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p>Todavía no hay coincidencias.</p>
+    {% endif %}
+</div>
+{% endblock %}

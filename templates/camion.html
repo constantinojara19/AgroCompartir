@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block contenido %}
+<h1>Puzzle de carga</h1>
+<p class="subtitulo">Capacidad ocupada del camión compartido</p>
+
+<div class="tarjeta">
+    <div class="medidor">
+        <div class="medidor-etiquetas">
+            <span>Cajones</span>
+            <span>{{ datos.cajones_totales }} / {{ datos.cajones_maximo }}</span>
+        </div>
+        <div class="barra">
+            <div class="barra-relleno {{ 'supera' if datos.supera_cajones else '' }}"
+                 style="width: {{ [datos.porcentaje_cajones, 100]|min }}%;"></div>
+        </div>
+    </div>
+
+    <div class="medidor">
+        <div class="medidor-etiquetas">
+            <span>Peso</span>
+            <span>{{ datos.peso_total }} kg / {{ datos.peso_maximo }} kg</span>
+        </div>
+        <div class="barra">
+            <div class="barra-relleno {{ 'supera' if datos.supera_peso else '' }}"
+                 style="width: {{ [datos.porcentaje_peso, 100]|min }}%;"></div>
+        </div>
+    </div>
+
+    {% if datos.camion_lleno %}
+    <div class="alerta alerta--advertencia">
+        El camión alcanzó (o superó) su capacidad máxima.
+    </div>
+    {% else %}
+    <div class="alerta alerta--exito">
+        Todavía hay lugar disponible en el camión.
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block contenido %}
+<h1>Mi espacio disponible</h1>
+<p class="subtitulo">Cargá tu vehículo con el peso y los cajones que soporta llevar</p>
+
+<div class="tarjeta">
+    <form class="formulario" method="POST">
+        <label for="patente">Patente</label>
+        <input type="text" id="patente" name="patente" required>
+
+        <label for="marca_modelo">Marca y modelo</label>
+        <input type="text" id="marca_modelo" name="marca_modelo" required>
+
+        <label for="peso_maximo">Peso máximo que soporta (kg)</label>
+        <input type="number" id="peso_maximo" name="peso_maximo" step="0.1" min="1" required>
+
+        <label for="cajones_maximo">Cajones máximos que entran</label>
+        <input type="number" id="cajones_maximo" name="cajones_maximo" min="1" required>
+
+        <button type="submit" class="btn">Guardar vehículo</button>
+    </form>
+</div>
+
+<div class="tarjeta">
+    <h2>Mis vehículos cargados</h2>
+    {% if vehiculos %}
+    <table class="tabla">
+        <thead>
+            <tr>
+                <th>Patente</th>
+                <th>Marca y modelo</th>
+                <th>Peso máximo</th>
+                <th>Cajones máximos</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for v in vehiculos %}
+            <tr>
+                <td>{{ v[1] }}</td>
+                <td>{{ v[2] }}</td>
+                <td>{{ v[3] }} kg</td>
+                <td>{{ v[4] }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p>Todavía no cargaste ningún vehículo.</p>
+    {% endif %}
+</div>
+{% endblock %}

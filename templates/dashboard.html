@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block contenido %}
+<h1>Hola, {{ session.usuario_nombre }}</h1>
+<p class="subtitulo">¿Qué querés hacer hoy?</p>
+
+{% if session.tipo_usuario == 'cliente' %}
+    {% if resumen.cantidad_vehiculos > 0 %}
+    <div class="alerta alerta--exito">
+        🚛 Hay {{ resumen.cantidad_vehiculos }} fletero{{ 's' if resumen.cantidad_vehiculos != 1 else '' }}
+        con espacio disponible ahora mismo ({{ resumen.cajones_disponibles }} cajones libres en total).
+        <a href="{{ url_for('disponibilidad') }}">Ver detalle</a>
+    </div>
+    {% else %}
+    <div class="alerta alerta--advertencia">
+        Todavía no hay ningún fletero con espacio disponible publicado.
+    </div>
+    {% endif %}
+{% endif %}
+
+<div class="grilla-dashboard">
+    <a href="{{ url_for('productores') }}" class="tarjeta-acceso">
+        <h3>Productores</h3>
+        <p>Cargá tu producción y mirá lo que suman los demás.</p>
+    </a>
+    <a href="{{ url_for('camion') }}" class="tarjeta-acceso">
+        <h3>Puzzle de carga</h3>
+        <p>Verificá si el camión llega a su capacidad máxima.</p>
+    </a>
+    <a href="{{ url_for('ruta') }}" class="tarjeta-acceso">
+        <h3>Ruta inteligente</h3>
+        <p>Calculá el recorrido más corto hasta el mercado.</p>
+    </a>
+    <a href="{{ url_for('lugar_libre') }}" class="tarjeta-acceso">
+        <h3>Lugar libre</h3>
+        <p>Publicá espacio libre o lo que necesitás, y encontrá coincidencias.</p>
+    </a>
+    <a href="{{ url_for('ahorro') }}" class="tarjeta-acceso">
+        <h3>Ahorro</h3>
+        <p>Mirá cuánto ahorra cada productor compartiendo el flete.</p>
+    </a>
+    {% if session.tipo_usuario == 'fletero' %}
+    <a href="{{ url_for('vehiculo') }}" class="tarjeta-acceso">
+        <h3>Mi espacio disponible</h3>
+        <p>Cargá tu camión con el peso y los cajones que soporta llevar.</p>
+    </a>
+    {% endif %}
+    <a href="{{ url_for('disponibilidad') }}" class="tarjeta-acceso">
+        <h3>Fleteros disponibles</h3>
+        <p>Mirá qué fleteros tienen lugar libre en su camión ahora mismo.</p>
+    </a>
+</div>
+{% endblock %}

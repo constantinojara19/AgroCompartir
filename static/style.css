@@ -1,0 +1,529 @@
+/* =====================================================================
+   style.css
+   ---------------------------------------------------------------------
+   CSS simple y comentado, sin Bootstrap ni frameworks. Todo el color
+   y la tipografía salen de las variables definidas en :root, así que
+   para cambiar la paleta alcanza con tocar esta primera sección.
+
+   Identidad visual: Lavalle es un departamento de oasis en pleno
+   desierto de Mendoza (por eso el fondo color arena), con cultivos de
+   tomate, melón y uva (por eso cada producto tiene su propio color) y
+   una fuerte tradición cooperativa (de ahí el "sello" circular que se
+   usa como marca, como si fuera el sello de la cooperativa en los
+   cajones de fruta).
+   ===================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Karla:wght@400;500;700&display=swap');
+
+:root {
+    /* Paleta principal */
+    --fondo: #EDE6D2;          /* arena del desierto de Lavalle */
+    --verde-oscuro: #2F4A2B;   /* verde parral, para la barra lateral */
+    --verde-medio: #4C6B3F;    /* verde hoja, botones y enlaces */
+    --verde-claro: #8FA876;    /* detalles suaves */
+    --tierra: #6B4A30;         /* tierra/madera de cajón */
+    --tierra-clara: #C9A876;   /* bordes y líneas */
+    --blanco: #FFFDF6;         /* tarjetas */
+    --tomate: #B5432B;
+    --melon: #C98A1F;
+    --uva: #5B3A5C;
+    --texto: #2B2318;
+    --error: #A5322A;
+    --exito: #35662E;
+
+    --fuente-titulo: 'Oswald', sans-serif;
+    --fuente-texto: 'Karla', sans-serif;
+
+    --radio: 8px;
+    --sombra: 0 2px 8px rgba(43, 35, 24, 0.12);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background-color: var(--fondo);
+    color: var(--texto);
+    font-family: var(--fuente-texto);
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+h1, h2, h3 {
+    font-family: var(--fuente-titulo);
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    color: var(--verde-oscuro);
+    margin-top: 0;
+}
+
+a {
+    color: var(--verde-medio);
+}
+
+/* =====================================================================
+   ESTRUCTURA GENERAL: barra lateral + contenido
+   ===================================================================== */
+
+.layout {
+    display: flex;
+    min-height: 100vh;
+}
+
+.menu {
+    width: 230px;
+    flex-shrink: 0;
+    background-color: var(--verde-oscuro);
+    color: var(--blanco);
+    display: flex;
+    flex-direction: column;
+    padding: 24px 0;
+}
+
+.menu-titulo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0 20px 24px 20px;
+    font-family: var(--fuente-titulo);
+    font-size: 1.15rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    border-bottom: 1px solid rgba(255, 253, 246, 0.15);
+    margin-bottom: 16px;
+}
+
+/* "Sello" circular: la marca de la cooperativa, reutilizada también
+   como insignia de "coincidencia encontrada" en Lugar Libre. */
+.sello {
+    flex-shrink: 0;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    border: 2px solid var(--verde-claro);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--fuente-titulo);
+    font-size: 0.85rem;
+    font-weight: 700;
+}
+
+.menu ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    flex-grow: 1;
+}
+
+.menu li a {
+    display: block;
+    padding: 11px 20px;
+    color: var(--blanco);
+    text-decoration: none;
+    font-weight: 500;
+    border-left: 3px solid transparent;
+}
+
+.menu li a:hover {
+    background-color: rgba(255, 253, 246, 0.08);
+    border-left-color: var(--melon);
+}
+
+.menu-usuario {
+    padding: 16px 20px 0 20px;
+    border-top: 1px solid rgba(255, 253, 246, 0.15);
+    font-size: 0.9rem;
+}
+
+.menu-usuario span {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--verde-claro);
+}
+
+.boton-salir {
+    display: inline-block;
+    color: var(--blanco) !important;
+    background-color: var(--tomate);
+    padding: 6px 12px;
+    border-radius: var(--radio);
+    text-decoration: none;
+    font-size: 0.85rem;
+}
+
+.contenido {
+    flex-grow: 1;
+    padding: 36px 40px;
+    max-width: 980px;
+}
+
+/* =====================================================================
+   TARJETAS Y BLOQUES
+   ===================================================================== */
+
+.tarjeta {
+    background-color: var(--blanco);
+    border: 1px solid var(--tierra-clara);
+    border-radius: var(--radio);
+    box-shadow: var(--sombra);
+    padding: 24px 28px;
+    margin-bottom: 24px;
+}
+
+.subtitulo {
+    color: var(--tierra);
+    margin-top: -8px;
+    margin-bottom: 20px;
+}
+
+/* Grilla de accesos del dashboard */
+.grilla-dashboard {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 18px;
+}
+
+.tarjeta-acceso {
+    background-color: var(--blanco);
+    border: 1px solid var(--tierra-clara);
+    border-left: 5px solid var(--verde-medio);
+    border-radius: var(--radio);
+    box-shadow: var(--sombra);
+    padding: 20px;
+    text-decoration: none;
+    color: var(--texto);
+    display: block;
+}
+
+.tarjeta-acceso h3 {
+    margin-bottom: 6px;
+}
+
+.tarjeta-acceso p {
+    margin: 0;
+    font-size: 0.92rem;
+    color: var(--tierra);
+}
+
+/* =====================================================================
+   FORMULARIOS
+   ===================================================================== */
+
+.formulario label {
+    display: block;
+    font-weight: 700;
+    margin: 14px 0 6px 0;
+    font-size: 0.92rem;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    color: var(--tierra);
+}
+
+.formulario input[type="text"],
+.formulario input[type="email"],
+.formulario input[type="password"],
+.formulario input[type="number"],
+.formulario select {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid var(--tierra-clara);
+    border-radius: var(--radio);
+    font-family: var(--fuente-texto);
+    font-size: 1rem;
+    background-color: var(--fondo);
+    color: var(--texto);
+}
+
+.formulario input:focus,
+.formulario select:focus {
+    outline: 2px solid var(--verde-medio);
+    outline-offset: 1px;
+}
+
+.formulario .fila-radio {
+    display: flex;
+    gap: 24px;
+    margin: 14px 0 6px 0;
+}
+
+.formulario .fila-radio label {
+    text-transform: none;
+    font-weight: 500;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.btn {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 11px 22px;
+    background-color: var(--verde-medio);
+    color: var(--blanco);
+    border: none;
+    border-radius: var(--radio);
+    font-family: var(--fuente-titulo);
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    font-size: 0.95rem;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: var(--verde-oscuro);
+}
+
+/* =====================================================================
+   TABLAS
+   ===================================================================== */
+
+table.tabla {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 12px;
+}
+
+table.tabla th,
+table.tabla td {
+    text-align: left;
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--tierra-clara);
+    font-size: 0.94rem;
+}
+
+table.tabla th {
+    font-family: var(--fuente-titulo);
+    text-transform: uppercase;
+    font-size: 0.78rem;
+    letter-spacing: 0.04em;
+    color: var(--tierra);
+    background-color: var(--fondo);
+}
+
+table.tabla tr:last-child td {
+    border-bottom: none;
+}
+
+/* =====================================================================
+   ETIQUETAS DE PRODUCTO
+   ===================================================================== */
+
+.etiqueta {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--blanco);
+}
+
+.etiqueta--tomate { background-color: var(--tomate); }
+.etiqueta--melon  { background-color: var(--melon); }
+.etiqueta--uva    { background-color: var(--uva); }
+
+/* =====================================================================
+   ALERTAS Y MENSAJES
+   ===================================================================== */
+
+.alerta {
+    padding: 12px 16px;
+    border-radius: var(--radio);
+    margin-bottom: 18px;
+    font-weight: 500;
+}
+
+.alerta--error {
+    background-color: #F6DEDB;
+    color: var(--error);
+    border: 1px solid var(--error);
+}
+
+.alerta--exito {
+    background-color: #E1EBDD;
+    color: var(--exito);
+    border: 1px solid var(--exito);
+}
+
+.alerta--advertencia {
+    background-color: #F7ECD6;
+    color: #8A5A00;
+    border: 1px solid var(--melon);
+}
+
+/* =====================================================================
+   FUNCIONALIDAD 1: BARRA DE CAPACIDAD DEL CAMIÓN
+   ===================================================================== */
+
+.medidor {
+    margin: 18px 0;
+}
+
+.medidor-etiquetas {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    margin-bottom: 6px;
+    color: var(--tierra);
+}
+
+.barra {
+    width: 100%;
+    height: 22px;
+    background-color: var(--fondo);
+    border: 1px solid var(--tierra-clara);
+    border-radius: var(--radio);
+    overflow: hidden;
+}
+
+.barra-relleno {
+    height: 100%;
+    background-color: var(--verde-medio);
+}
+
+.barra-relleno.supera {
+    background-color: var(--tomate);
+}
+
+/* =====================================================================
+   FUNCIONALIDAD 2: RUTA
+   ===================================================================== */
+
+.ruta-lista {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+}
+
+.ruta-paso {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 10px 0;
+}
+
+.ruta-numero {
+    flex-shrink: 0;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: var(--verde-medio);
+    color: var(--blanco);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--fuente-titulo);
+    font-size: 0.85rem;
+}
+
+.ruta-paso.destino .ruta-numero {
+    background-color: var(--tomate);
+}
+
+.ruta-flecha {
+    text-align: center;
+    color: var(--tierra-clara);
+    font-size: 1.2rem;
+    padding-left: 15px;
+}
+
+/* =====================================================================
+   PÁGINAS DE LOGIN / REGISTRO (sin barra lateral)
+   ===================================================================== */
+
+.auth-fondo {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.auth-caja {
+    background-color: var(--blanco);
+    border: 1px solid var(--tierra-clara);
+    border-radius: var(--radio);
+    box-shadow: var(--sombra);
+    padding: 36px 40px;
+    width: 100%;
+    max-width: 380px;
+    text-align: center;
+}
+
+.auth-caja .sello {
+    margin: 0 auto 14px auto;
+    width: 54px;
+    height: 54px;
+    border-color: var(--verde-medio);
+    color: var(--verde-oscuro);
+    font-size: 1.3rem;
+}
+
+.auth-caja h1 {
+    margin-bottom: 4px;
+}
+
+.auth-caja .subtitulo {
+    margin-bottom: 24px;
+}
+
+.auth-caja form {
+    text-align: left;
+}
+
+.auth-caja .btn {
+    width: 100%;
+    text-align: center;
+}
+
+.auth-links {
+    margin-top: 18px;
+    font-size: 0.92rem;
+}
+
+/* =====================================================================
+   RESPONSIVE: en pantallas angostas la barra lateral pasa a ser
+   una barra superior con los enlaces en fila.
+   ===================================================================== */
+
+@media (max-width: 760px) {
+    .layout {
+        flex-direction: column;
+    }
+
+    .menu {
+        width: 100%;
+        padding: 16px 0;
+    }
+
+    .menu ul {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .menu li a {
+        padding: 8px 14px;
+        border-left: none;
+        border-bottom: 3px solid transparent;
+    }
+
+    .menu li a:hover {
+        border-bottom-color: var(--melon);
+    }
+
+    .menu-usuario {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-top: none;
+        padding: 12px 20px 0 20px;
+    }
+
+    .contenido {
+        padding: 24px 18px;
+    }
+}

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgroCompartir</title>
+    <!-- Vinculamos la única hoja de estilos del proyecto -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="layout">
+
+    {% if session.usuario_id %}
+    <!-- Esta barra lateral solo se muestra si hay una sesión activa
+         (es decir, si el usuario ya inició sesión). Cada navegador
+         tiene su propia sesión, por eso Juan y Pedro pueden estar
+         conectados al mismo tiempo desde dos navegadores distintos. -->
+    <nav class="menu">
+        <div class="menu-titulo">
+            <span class="sello">AC</span>
+            AgroCompartir
+        </div>
+        <ul>
+            <li><a href="{{ url_for('dashboard') }}">Inicio</a></li>
+            <li><a href="{{ url_for('productores') }}">Productores</a></li>
+            <li><a href="{{ url_for('camion') }}">Puzzle de carga</a></li>
+            <li><a href="{{ url_for('ruta') }}">Ruta inteligente</a></li>
+            <li><a href="{{ url_for('lugar_libre') }}">Lugar libre</a></li>
+            <li><a href="{{ url_for('ahorro') }}">Ahorro</a></li>
+            {% if session.tipo_usuario == 'fletero' %}
+            <li><a href="{{ url_for('vehiculo') }}">Mi espacio disponible</a></li>
+            {% endif %}
+            <li><a href="{{ url_for('disponibilidad') }}">Fleteros disponibles</a></li>
+        </ul>
+        <div class="menu-usuario">
+            <span>Hola, {{ session.usuario_nombre }}</span>
+            <a href="{{ url_for('logout') }}" class="boton-salir">Cerrar sesión</a>
+        </div>
+    </nav>
+    {% endif %}
+
+    <main class="contenido">
+        {% block contenido %}{% endblock %}
+    </main>
+
+</div>
+
+</body>
+</html>

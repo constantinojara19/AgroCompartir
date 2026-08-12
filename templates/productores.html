@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% block contenido %}
+<h1>Productores</h1>
+<p class="subtitulo">Cargá tu producción para este viaje</p>
+
+<div class="tarjeta">
+    <form class="formulario" method="POST">
+        <label for="nombre_productor">Nombre del productor</label>
+        <input type="text" id="nombre_productor" name="nombre_productor" required>
+
+        <label for="localidad">Localidad</label>
+        <select id="localidad" name="localidad" required>
+            {% for loc in localidades %}
+            <option value="{{ loc }}">{{ loc }}</option>
+            {% endfor %}
+        </select>
+
+        <label for="producto">Producto</label>
+        <select id="producto" name="producto" required>
+            {% for prod in productos %}
+            <option value="{{ prod }}">{{ prod }}</option>
+            {% endfor %}
+        </select>
+
+        <label for="cantidad_cajones">Cantidad de cajones</label>
+        <input type="number" id="cantidad_cajones" name="cantidad_cajones" min="1" required>
+
+        <label for="peso_por_cajon">Peso por cajón (kg)</label>
+        <input type="number" id="peso_por_cajon" name="peso_por_cajon" step="0.1" min="0" required>
+
+        <label for="costo_viaje">Costo de flete individual ($)</label>
+        <input type="number" id="costo_viaje" name="costo_viaje" step="0.01" min="0" required>
+
+        <button type="submit" class="btn">Guardar</button>
+    </form>
+</div>
+
+<div class="tarjeta">
+    <h2>Producción cargada</h2>
+    {% if productores %}
+    <table class="tabla">
+        <thead>
+            <tr>
+                <th>Usuario</th>
+                <th>Productor</th>
+                <th>Localidad</th>
+                <th>Producto</th>
+                <th>Cajones</th>
+                <th>Peso/cajón</th>
+                <th>Costo flete</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for p in productores %}
+            <tr>
+                <td>{{ p[1] }}</td>
+                <td>{{ p[2] }}</td>
+                <td>{{ p[3] }}</td>
+                <td>
+                    {% if p[4] == 'Tomate' %}
+                    <span class="etiqueta etiqueta--tomate">{{ p[4] }}</span>
+                    {% elif p[4] == 'Melón' %}
+                    <span class="etiqueta etiqueta--melon">{{ p[4] }}</span>
+                    {% else %}
+                    <span class="etiqueta etiqueta--uva">{{ p[4] }}</span>
+                    {% endif %}
+                </td>
+                <td>{{ p[5] }}</td>
+                <td>{{ p[6] }} kg</td>
+                <td>${{ "%.2f"|format(p[7]) }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p>Todavía no hay producción cargada.</p>
+    {% endif %}
+</div>
+{% endblock %}

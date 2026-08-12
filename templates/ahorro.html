@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block contenido %}
+<h1>Ahorro</h1>
+<p class="subtitulo">Comparación entre flete individual y camión compartido</p>
+
+<div class="tarjeta">
+    {% if datos.detalle %}
+    <table class="tabla">
+        <thead>
+            <tr>
+                <th>Productor</th>
+                <th>Costo individual</th>
+                <th>Parte del camión compartido</th>
+                <th>Ahorro</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for d in datos.detalle %}
+            <tr>
+                <td>{{ d.nombre }}</td>
+                <td>${{ "%.2f"|format(d.costo_individual) }}</td>
+                <td>${{ "%.2f"|format(d.parte_compartida) }}</td>
+                <td>${{ "%.2f"|format(d.ahorro) }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <p><strong>Total individual:</strong> ${{ "%.2f"|format(datos.costo_individual_total) }}</p>
+    <p><strong>Costo camión compartido:</strong> ${{ "%.2f"|format(datos.costo_compartido) }}</p>
+    <p><strong>Ahorro total:</strong> ${{ "%.2f"|format(datos.ahorro_total) }}</p>
+    {% else %}
+    <p>Todavía no hay productores cargados para calcular el ahorro.</p>
+    {% endif %}
+</div>
+{% endblock %}
